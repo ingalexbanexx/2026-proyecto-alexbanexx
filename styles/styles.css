@@ -1,0 +1,844 @@
+/* ==========================================================================
+   1. RESETEO UNIVERSAL Y CONTROL DEL BOX MODEL
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta en formato HEX oficial */
+    --color-bg-base: #0a0e17;
+    --color-surface: #111827;
+    --color-surface-hover: #162033;
+    --color-border: #1f2d47;
+    
+    --color-primary: #00f0ff;       /* Cian neón de acento */
+    --color-secondary: #0077ff;     /* Azul digital */
+    --color-text-main: #f3f4f6;     /* Texto de alto contraste */
+    --color-text-muted: #9ca3af;    /* Texto secundario */
+    --color-online: #10b981;        /* Verde estado operativo */
+    
+    /* Tipografías oficiales con fallbacks genéricos */
+    --font-heading: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* Variable para transiciones suaves */
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. REGLAS BASE DEL CUERPO */
+
+body.site-body {
+    background-color: var(--color-bg-base);
+    background-image: 
+        radial-gradient(circle at 15% 20%, rgba(0, 119, 255, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 45%);
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. PERSONALIZACIÓN DE LA NAVBAR DE BOOTSTRAP (Mantiene estética del sitio) */
+
+.main-header.navbar {
+    background-color: rgba(10, 14, 23, 0.92) !important;
+    background-image: 
+        linear-gradient(rgba(10, 14, 23, 0.85), rgba(10, 14, 23, 0.94)),
+        url('../images/header-circuit.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border-bottom: 2px solid var(--color-primary);
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.25);
+    padding: 0.75rem 1.2rem;
+    transition: var(--transition-smooth);
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-smooth);
+}
+
+.brand-logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.45));
+    transition: var(--transition-smooth);
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transition-smooth);
+}
+
+.brand-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transition-smooth);
+}
+
+/* Botón Hamburguesa de Bootstrap con estilo personalizado */
+.custom-toggler.navbar-toggler {
+    border: 1px solid var(--color-primary);
+    background-color: rgba(0, 240, 255, 0.1);
+    padding: 0.45rem 0.65rem;
+    transition: var(--transition-smooth);
+}
+
+.custom-toggler.navbar-toggler:focus {
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+    outline: none;
+}
+
+.custom-toggler.navbar-toggler:hover {
+    background-color: rgba(0, 240, 255, 0.25);
+    transform: scale(1.04);
+}
+
+.custom-toggler.navbar-toggler:active {
+    transform: scale(0.96);
+}
+
+/* ==========================================================================
+   4. ESTADOS INTERACTIVOS EN ENLACES DE LA NAVBAR (:hover, :focus, :active)
+   ========================================================================== */
+
+.nav-link {
+    color: var(--color-text-muted) !important;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.45rem 0.95rem !important;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: var(--transition-smooth);
+    margin: 0.15rem 0.25rem;
+}
+
+/* Hover: Iluminación neón y fondo translúcido */
+.nav-link:hover {
+    color: var(--color-primary) !important;
+    background-color: rgba(0, 240, 255, 0.12);
+    border-color: rgba(0, 240, 255, 0.35);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Focus: Accesibilidad mediante teclado */
+.nav-link:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.45);
+}
+
+/* Active: Estado presionado */
+.nav-link:active {
+    transform: scale(0.95);
+    background-color: rgba(0, 240, 255, 0.22);
+}
+
+/* Página activa */
+.nav-link.nav-link-active {
+    color: var(--color-primary) !important;
+    background-color: rgba(0, 240, 255, 0.12);
+    border-color: rgba(0, 240, 255, 0.45);
+    box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+/* Enlaces de Redes Sociales */
+.social-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-left: 0;
+}
+
+.social-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    background-color: rgba(17, 24, 39, 0.7);
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.social-link:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-base);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+.social-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.5);
+}
+
+.social-link:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================================================
+   5. COMPONENTE BOOTSTRAP: CAROUSEL PERSONALIZADO
+   ========================================================================== */
+
+.custom-carousel {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-img {
+    height: 380px;
+    object-fit: cover;
+    filter: brightness(0.78);
+    transition: filter 0.3s ease;
+}
+
+.custom-carousel:hover .carousel-img {
+    filter: brightness(0.9);
+}
+
+.custom-caption {
+    background: rgba(10, 14, 23, 0.75);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    bottom: 2rem;
+}
+
+.custom-caption h3 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1.45rem;
+    margin-bottom: 0.3rem;
+}
+
+.custom-caption p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-text-main);
+    margin-bottom: 0;
+}
+
+/* Indicadores del Carousel con pseudoclases */
+.carousel-indicators [data-bs-target] {
+    background-color: var(--color-text-muted);
+    height: 4px;
+    border-radius: 2px;
+    opacity: 0.5;
+    transition: var(--transition-smooth);
+}
+
+.carousel-indicators .active,
+.carousel-indicators [data-bs-target]:hover {
+    background-color: var(--color-primary);
+    opacity: 1;
+    box-shadow: 0 0 8px var(--color-primary);
+}
+
+/* Controles Prev / Next con interactividad */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%;
+    transition: var(--transition-smooth);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: rgba(0, 240, 255, 0.08);
+}
+
+.carousel-control-prev:focus,
+.carousel-control-next:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* ==========================================================================
+   6. COMPONENTE BOOTSTRAP: MODAL PERSONALIZADO
+   ========================================================================== */
+
+.custom-modal .modal-content {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.35);
+    border-radius: 8px;
+    color: var(--color-text-main);
+}
+
+.custom-modal-header {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.2rem 1.5rem;
+}
+
+.custom-modal-header .modal-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+
+.custom-modal-body {
+    padding: 1.5rem;
+    font-family: var(--font-body);
+}
+
+.custom-modal-footer {
+    border-top: 1px solid var(--color-border);
+    padding: 1rem 1.5rem;
+}
+
+.text-accent {
+    color: var(--color-primary);
+}
+
+/* ==========================================================================
+   7. ESTADOS INTERACTIVOS EN BOTONES Y TARJETAS (:hover, :focus, :active)
+   ========================================================================== */
+
+.btn {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 0.7rem 1.45rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--transition-smooth);
+}
+
+/* Botón Primario */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-bg-base);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    background-color: #38f4ff;
+    color: var(--color-bg-base);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.85);
+    transform: translateY(-2px);
+    border-color: #38f4ff;
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.5);
+}
+
+.btn-primary:active {
+    transform: scale(0.96);
+    background-color: #00c7d4;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Botón Secundario */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 240, 255, 0.15);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.4);
+}
+
+.btn-secondary:active {
+    transform: scale(0.96);
+    background-color: rgba(0, 240, 255, 0.25);
+}
+
+.btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.82rem;
+}
+
+/* Tarjetas interactivas con :hover y :focus-within */
+.content-card,
+.project-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.6rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: var(--transition-smooth);
+}
+
+.content-card:hover,
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 26px rgba(0, 240, 255, 0.25);
+}
+
+.content-card:focus-within,
+.project-card:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
+}
+
+/* Inputs de formulario interactivos */
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-bg-base);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+}
+
+.form-input:hover,
+.form-textarea:hover {
+    border-color: rgba(0, 240, 255, 0.5);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+    background-color: rgba(10, 14, 23, 0.95);
+}
+
+.contact-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.contact-link:hover {
+    color: #38f4ff;
+    text-decoration: underline;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+.contact-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* ==========================================================================
+   8. ESTRUCTURA Y LAYOUT MOBILE FIRST (1 Columna Apilada)
+   ========================================================================== */
+
+.content-container {
+    max-width: 1200px;
+    width: 92%;
+    margin: 2.2rem auto;
+    flex: 1;
+}
+
+.section-block {
+    margin-bottom: 3.5rem;
+}
+
+.main-heading {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.25;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+.section-heading {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--color-secondary);
+    padding-left: 0.85rem;
+}
+
+.lead-paragraph {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.3rem;
+}
+
+.body-text {
+    font-size: 1rem;
+    color: var(--color-text-main);
+    margin-bottom: 0.75rem;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--color-text-main);
+    margin-bottom: 0.6rem;
+}
+
+.media-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.media-image {
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    display: block;
+}
+
+.media-caption {
+    padding: 0.8rem 1.1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    background-color: rgba(0, 0, 0, 0.45);
+    border-top: 1px solid var(--color-border);
+    font-style: italic;
+}
+
+/* Grillas en Mobile */
+.hero-grid-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+}
+
+/* Hub con grid-template-areas */
+.hub-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "hub-header"
+        "hub-info"
+        "hub-status"
+        "hub-map";
+    gap: 1.5rem;
+}
+
+.hub-area-header { grid-area: hub-header; }
+.hub-area-info   { grid-area: hub-info; }
+.hub-area-status { grid-area: hub-status; }
+.hub-area-map    { grid-area: hub-map; }
+
+.status-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 0;
+}
+
+.status-item {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.badge-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.badge-status.online {
+    background-color: var(--color-online);
+    box-shadow: 0 0 8px var(--color-online);
+}
+
+.map-wrapper {
+    width: 100%;
+    min-height: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.map-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    border: 0;
+    display: block;
+}
+
+/* Proyectos Layout */
+.projects-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "feat"
+        "card1"
+        "card2"
+        "card3";
+    gap: 1.5rem;
+}
+
+.project-area-feat  { grid-area: feat; }
+.project-area-card1 { grid-area: card1; }
+.project-area-card2 { grid-area: card2; }
+.project-area-card3 { grid-area: card3; }
+
+.project-badge {
+    align-self: flex-start;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--color-primary);
+    background-color: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+
+.project-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.4rem 0 0.8rem 0;
+    padding-left: 0;
+}
+
+.tag-item {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+}
+
+.contact-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-label {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--color-primary);
+}
+
+/* Footer Base */
+.main-footer {
+    background-color: #080c14;
+    background-image: 
+        linear-gradient(to top, rgba(10, 14, 23, 0.94), rgba(10, 14, 23, 0.86)),
+        url('../images/footer-circuit.jpg');
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    border-top: 2px solid var(--color-primary);
+    box-shadow: 0 -4px 20px rgba(0, 240, 255, 0.15);
+    padding: 1.5rem 1.2rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+.copyright-text {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   9. BREAKPOINTS: TABLET (min-width: 768px)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+    .content-container {
+        width: 88%;
+        margin: 2.8rem auto;
+    }
+
+    .main-heading {
+        font-size: 2.1rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .projects-grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "feat feat"
+            "card1 card2"
+            "card3 card3";
+        gap: 1.6rem;
+    }
+
+    .contact-grid-layout {
+        grid-template-columns: 1fr 1.3fr;
+    }
+
+    .main-footer {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1.6rem 2rem;
+        text-align: left;
+    }
+}
+
+/* ==========================================================================
+   10. BREAKPOINT DESKTOP (min-width: 1024px)
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+    .content-container {
+        width: 90%;
+        margin: 3.5rem auto;
+    }
+
+    .section-block {
+        margin-bottom: 4.5rem;
+    }
+
+    .main-heading {
+        font-size: 2.45rem;
+    }
+
+    .section-heading {
+        font-size: 1.7rem;
+    }
+
+    .hero-grid-section {
+        grid-template-columns: 1.2fr 1fr;
+        align-items: center;
+        gap: 2.8rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.8rem;
+    }
+
+    .hub-grid-layout {
+        grid-template-columns: 1.4fr 1fr;
+        grid-template-rows: auto 340px;
+        grid-template-areas:
+            "hub-header hub-status"
+            "hub-map    hub-info";
+        gap: 1.8rem;
+    }
+
+    .hub-area-map {
+        min-height: 100%;
+    }
+
+    .projects-grid-layout {
+        grid-template-columns: 1.5fr 1fr;
+        grid-template-rows: repeat(3, minmax(140px, auto));
+        grid-template-areas:
+            "feat card1"
+            "feat card2"
+            "feat card3";
+        gap: 1.8rem;
+    }
+
+    .project-area-feat {
+        padding: 2.2rem;
+    }
+
+    .project-area-feat .card-title {
+        font-size: 1.45rem;
+    }
+
+    .carousel-img {
+        height: 440px;
+    }
+}
